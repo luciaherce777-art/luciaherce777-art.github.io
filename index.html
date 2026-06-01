@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SolePrint | Plantillas personalizadas 3D</title>
+  <style>
+    :root {
+      --primary: #1f4e79;
+      --secondary: #5fa8d3;
+      --accent: #e8f1f8;
+      --dark: #1e2a32;
+      --light: #ffffff;
+      --text: #334155;
+      --muted: #64748b;
+      --shadow: 0 10px 30px rgba(31, 78, 121, 0.12);
+      --radius: 18px;
+      --max: 1150px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: #f8fbfd;
+      line-height: 1.6;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    .container {
+      width: min(92%, var(--max));
+      margin: 0 auto;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: var(--light);
+      padding-bottom: 70px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 0;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+
+    .logo span { color: #dff4ff; }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      font-size: 0.96rem;
+    }
+
+    .nav-links a {
+      opacity: 0.95;
+      transition: opacity 0.2s ease;
+    }
+
+    .nav-links a:hover { opacity: 1; }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 35px;
+      align-items: center;
+      padding: 40px 0 0;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      line-height: 1.1;
+      margin: 0 0 18px;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      max-width: 650px;
+      color: rgba(255,255,255,0.92);
+      margin-bottom: 28px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 22px;
+      border-radius: 999px;
+      font-weight: bold;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+    }
+
+    .btn-primary {
+      background: var(--light);
+      color: var(--primary);
+    }
+
+    .btn-secondary {
+      border: 1.5px solid rgba(255,255,255,0.65);
+      color: var(--light);
+    }
+
+    .hero-card {
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card h3 {
+      margin-top: 0;
+      font-size: 1.1rem;
+    }
+
+    .hero-card ul {
+      padding-left: 18px;
+      margin: 0;
+    }
+
+    .hero-image {
+      width: 100%;
+      display: block;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      object-fit: cover;
+      min-height: 320px;
+    }
+
+    section {
+      padding: 80px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    .section-title h2 {
+      margin: 0 0 10px;
+      color: var(--dark);
+      font-size: 2rem;
+    }
+
+    .section-title p {
+      margin: 0 auto;
+      max-width: 760px;
+      color: var(--muted);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .card {
+      background: var(--light);
+      padding: 26px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid #e5eef5;
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: var(--primary);
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .about-box {
+      background: var(--light);
+      padding: 28px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .step {
+      background: var(--light);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      border-top: 5px solid var(--secondary);
+    }
+
+    .step-number {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent);
+      color: var(--primary);
+      font-weight: bold;
+      margin-bottom: 14px;
+    }
+
+    .highlight {
+      background: linear-gradient(180deg, #eef7fc, #f8fbfd);
+    }
+
+    .contact-box {
+      background: var(--light);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow);
+      max-width: 780px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .contact-box p { color: var(--muted); }
+
+    .contact-data {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 24px;
+      text-align: left;
+    }
+
+    .contact-item {
+      background: var(--accent);
+      padding: 18px;
+      border-radius: 14px;
+    }
+
+
+    .collaborator-search {
+      background: var(--light);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      margin-bottom: 28px;
+      border: 1px solid #e5eef5;
+    }
+
+    .search-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 18px;
+    }
+
+    .search-row input {
+      flex: 1 1 260px;
+      max-width: 420px;
+      padding: 14px 16px;
+      border: 1px solid #cbd5e1;
+      border-radius: 999px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .search-row input:focus {
+      border-color: var(--secondary);
+      box-shadow: 0 0 0 3px rgba(95, 168, 211, 0.18);
+    }
+
+    .search-result {
+      margin-top: 18px;
+      background: var(--accent);
+      padding: 18px;
+      border-radius: 14px;
+      display: none;
+      text-align: left;
+    }
+
+    .search-result strong {
+      color: var(--primary);
+    }
+
+    .small-note {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    footer {
+      background: var(--dark);
+      color: #d8e3ea;
+      text-align: center;
+      padding: 26px 16px;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .about,
+      .cards,
+      .steps,
+      .contact-data {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Sole<span>Print</span></div>
+        <div class="nav-links">
+          <a href="#inicio">Inicio</a>
+          <a href="#sobre-nosotros">Sobre nosotros</a>
+          <a href="#servicios">Servicios</a>
+          <a href="#funcionamiento">Cómo funciona</a>
+          <a href="#colaboradores">Colaboradores</a>
+          <a href="#contacto">Contacto</a>
+        </div>
+      </nav>
+
+      <div class="hero" id="inicio">
+        <div>
+          <h1>Plantillas personalizadas 3D para mejorar tu bienestar</h1>
+          <p>
+            En SolePrint diseñamos plantillas personalizadas mediante impresión 3D y ofrecemos
+            calzado adaptado para mejorar la comodidad al caminar, el apoyo del pie y la salud del usuario.
+          </p>
+          <div class="hero-buttons">
+            <a class="btn btn-primary" href="#servicios">Descubrir servicios</a>
+            <a class="btn btn-secondary" href="#contacto">Solicitar información</a>
+          </div>
+        </div>
+
+        <div>
+          <img
+            src="img impresora.png"
+            alt="Impresora 3D trabajando"
+            class="hero-image"
+          />
+
+          <div class="hero-card" style="margin-top: 18px;">
+            <h3>¿Por qué SolePrint?</h3>
+            <ul>
+              <li>Soluciones personalizadas para cada cliente.</li>
+              <li>Tecnología de impresión 3D aplicada al bienestar.</li>
+              <li>Calzado adaptado para una mejor experiencia de uso.</li>
+              <li>Atención cercana y orientada a la salud del pie.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="sobre-nosotros">
+    <div class="container">
+      <div class="section-title">
+        <h2>Sobre nosotros</h2>
+        <p>
+          SolePrint nace como una propuesta innovadora que combina tecnología, personalización y bienestar
+          para ofrecer una solución adaptada a las necesidades reales de cada persona.
+        </p>
+      </div>
+
+      <div class="about">
+        <div class="about-box">
+          <h3>Nuestra misión</h3>
+          <p>
+            Mejorar la comodidad y la salud al caminar mediante el diseño y la fabricación de plantillas personalizadas,
+            complementadas con calzado adaptado que favorezca una pisada correcta y un mayor bienestar diario.
+          </p>
+        </div>
+        <div class="about-box">
+          <h3>Nuestra visión</h3>
+          <p>
+            Convertirnos en una marca de referencia en soluciones personalizadas para el pie, destacando por la innovación,
+            la calidad del servicio y la orientación al cliente.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="highlight" id="servicios">
+    <div class="container">
+      <div class="section-title">
+        <h2>Nuestros servicios</h2>
+        <p>
+          Ofrecemos una propuesta integral enfocada en mejorar la experiencia del usuario desde el diseño hasta la entrega final.
+        </p>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Plantillas personalizadas 3D</h3>
+          <p>
+            Diseñadas en función de las características del pie de cada cliente, buscando mejorar el apoyo, la comodidad y la estabilidad.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Calzado adaptado</h3>
+          <p>
+            Seleccionamos y adaptamos el calzado para integrarlo correctamente con las plantillas y ofrecer una solución más completa.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Atención personalizada</h3>
+          <p>
+            Acompañamos al cliente durante todo el proceso, resolviendo dudas y orientando la elección del producto más adecuado.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="funcionamiento">
+    <div class="container">
+      <div class="section-title">
+        <h2>Cómo funciona</h2>
+        <p>
+          Nuestro proceso está diseñado para ofrecer un servicio claro, eficiente y centrado en las necesidades de cada usuario.
+        </p>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Análisis</h3>
+          <p>Recogemos información sobre las necesidades del cliente y las características de su pisada.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Diseño</h3>
+          <p>Elaboramos un modelo digital personalizado mediante software de diseño 3D.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Fabricación</h3>
+          <p>Producimos las plantillas con impresión 3D, asegurando precisión y calidad en cada detalle.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <h3>Adaptación</h3>
+          <p>Integramos la plantilla con el calzado adecuado para ofrecer una solución funcional y cómoda.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="colaboradores">
+    <div class="container">
+      <div class="section-title">
+        <h2>Centros colaboradores</h2>
+        <p>
+          La venta de SolePrint no se realiza directamente desde la web. Para solicitar el producto,
+          el cliente debe acudir a un centro colaborador, donde se realizará el escaneo del pie y se
+          recogerá la información necesaria para diseñar la plantilla personalizada.
+        </p>
+      </div>
+
+      <div class="collaborator-search">
+        <h3>Busca tu centro colaborador más cercano</h3>
+        <p>
+          Introduce tu ciudad o provincia para ver el centro colaborador recomendado.
+          Si todavía no hay un centro disponible en tu zona, te indicaremos la opción más cercana
+          dentro de la red inicial de SolePrint.
+        </p>
+
+        <div class="search-row">
+          <input type="text" id="citySearch" placeholder="Ejemplo: Madrid, Barcelona, Valencia..." />
+          <button class="btn btn-primary" type="button" onclick="buscarCentro()">Buscar centro</button>
+        </div>
+
+        <div id="searchResult" class="search-result"></div>
+        <p class="small-note">
+          Esta red de colaboradores corresponde a la primera fase de expansión de SolePrint.
+        </p>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Podoactiva Logroño</h3>
+          <p><strong>Tipo:</strong> Clínica podológica</p>
+          <p><strong>Ubicación:</strong> Logroño</p>
+          <p>Realiza el escaneo digital del pie y sube la información a la carpeta compartida de Dropbox.</p>
+        </div>
+        <div class="card">
+          <h3>Nosfarma</h3>
+          <p><strong>Tipo:</strong> Farmacia-ortopedia</p>
+          <p><strong>Ubicación:</strong> Alcobendas, Madrid</p>
+          <p>Centro colaborador para informar al cliente y gestionar el escaneo del pie.</p>
+        </div>
+        <div class="card">
+          <h3>Clínica Podología i l'Esport</h3>
+          <p><strong>Tipo:</strong> Clínica podológica</p>
+          <p><strong>Ubicación:</strong> Barcelona</p>
+          <p>Realiza el escaneo digital y orienta al cliente sobre el producto más adecuado.</p>
+        </div>
+        <div class="card">
+          <h3>Farmacia Lizandra</h3>
+          <p><strong>Tipo:</strong> Farmacia-ortopedia</p>
+          <p><strong>Ubicación:</strong> Valencia</p>
+          <p>Punto de contacto para clientes interesados en plantillas personalizadas.</p>
+        </div>
+        <div class="card">
+          <h3>Ortopedia.com</h3>
+          <p><strong>Tipo:</strong> Ortopedia</p>
+          <p><strong>Ubicación:</strong> Sevilla</p>
+          <p>Centro colaborador para realizar el escaneo y asesorar al cliente.</p>
+        </div>
+      </div>
+
+      <div class="contact-box" style="margin-top: 28px;">
+        <h3>¿Cómo solicitar el producto?</h3>
+        <p>
+          Busca el centro colaborador más cercano y acude allí para realizar el escaneo del pie.
+          Después, SolePrint recibirá la información y diseñará la plantilla personalizada.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="highlight" id="contacto">
+    <div class="container">
+      <div class="section-title">
+        <h2>Contacto</h2>
+        <p>
+          Si deseas más información sobre SolePrint, nuestros servicios o los centros colaboradores disponibles, estaremos encantados de ayudarte.
+        </p>
+      </div>
+
+      <div class="contact-box">
+        <h3>Solicita información</h3>
+        <p>Escríbenos y te ayudaremos a resolver tus dudas o a localizar un centro colaborador cercano.</p>
+
+        <div class="contact-data">
+          <div class="contact-item">
+            <strong>Email</strong>
+            <p>info@soleprint.es</p>
+          </div>
+          <div class="contact-item">
+            <strong>Teléfono</strong>
+            <p>+34 600 123 456</p>
+          </div>
+          <div class="contact-item">
+            <strong>Ubicación</strong>
+            <p>Arnedo, España</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 SolePrint.</p>
+  </footer>
+
+  <script>
+    const centros = [
+      {
+        nombre: "Nosfarma",
+        tipo: "Farmacia-ortopedia",
+        ubicacion: "Alcobendas, Madrid",
+        palabras: ["madrid", "alcobendas", "getafe", "leganes", "mostoles", "alcorcon", "fuenlabrada"]
+      },
+      {
+        nombre: "Clínica Podología i l'Esport",
+        tipo: "Clínica podológica",
+        ubicacion: "Barcelona",
+        palabras: ["barcelona", "badalona", "hospitalet", "sabadell", "terrassa", "mataro"]
+      },
+      {
+        nombre: "Farmacia Lizandra",
+        tipo: "Farmacia-ortopedia",
+        ubicacion: "Valencia",
+        palabras: ["valencia", "alicante", "castellon", "gandia", "torrent"]
+      },
+      {
+        nombre: "Ortopedia.com",
+        tipo: "Ortopedia",
+        ubicacion: "Sevilla",
+        palabras: ["sevilla", "cordoba", "cadiz", "huelva", "malaga", "granada"]
+      },
+      {
+        nombre: "Podoactiva Logroño",
+        tipo: "Clínica podológica",
+        ubicacion: "Logroño",
+        palabras: ["logroño", "logrono", "la rioja", "arnedo", "calahorra", "haro", "najera"]
+      }
+    ];
+
+    function buscarCentro() {
+      const input = document.getElementById("citySearch").value.trim().toLowerCase();
+      const result = document.getElementById("searchResult");
+
+      if (!input) {
+        result.style.display = "block";
+        result.innerHTML = "Introduce una ciudad o provincia para buscar el centro colaborador más cercano.";
+        return;
+      }
+
+      const centro = centros.find(c => c.palabras.some(p => input.includes(p) || p.includes(input)));
+
+      if (centro) {
+        result.style.display = "block";
+        result.innerHTML = `
+          <strong>Centro colaborador recomendado:</strong><br>
+          ${centro.nombre}<br>
+          <strong>Tipo:</strong> ${centro.tipo}<br>
+          <strong>Ubicación:</strong> ${centro.ubicacion}<br>
+          Puedes acudir a este centro para solicitar información y realizar el escaneo del pie.
+        `;
+      } else {
+        result.style.display = "block";
+        result.innerHTML = `
+          Todavía no hay un centro colaborador registrado para esa localidad en la fase inicial.
+          Puedes contactar con SolePrint para que te indiquemos el centro disponible más cercano
+          o para consultar futuras incorporaciones a la red.
+        `;
+      }
+    }
+  </script>
+
+</body>
+</html>
